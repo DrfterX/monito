@@ -1,0 +1,42 @@
+name = "monito"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["* * * * *"]
+
+# === D1 Database ===
+# Create: wrangler d1 create monito-db
+# Then paste the ID below
+[[d1_databases]]
+binding = "DB"
+database_name = "monito-db"
+database_id = "db13d4db-6109-4550-8d7e-5040f72fee19"
+
+# === KV Namespace ===
+# Create: wrangler kv namespace create monito-state
+# Then paste the ID below
+[[kv_namespaces]]
+binding = "MONITO_STATE"
+id = "58d452888ffc478a94a5a900e432cfd6"
+
+# === Environment Variables ===
+[vars]
+ENVIRONMENT = "production"
+CHECK_TIMEOUT = "10"
+CHECK_CONCURRENCY = "5"
+MIN_FAILURES_FOR_ALERT = "3"
+ALERT_COOLDOWN_MINUTES = "30"
+
+# === Secrets (set via wrangler secret put) ===
+# RESEND_API_KEY      — Resend API key for email alerts
+# DEFAULT_ALERT_FROM  — Sender email for alerts (e.g. monito@yourdomain.com)
+# ALERT_EMAIL         — Default recipient for alerts
+# MONITO_API_KEY      — API key for CLI authentication
+
+# === Staging Environment ===
+[env.staging]
+name = "monito-staging"
+[env.staging.vars]
+ENVIRONMENT = "staging"

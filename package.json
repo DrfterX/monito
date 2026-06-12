@@ -1,0 +1,31 @@
+{
+  "name": "monito",
+  "version": "0.1.0",
+  "description": "API Health Check Monitor — anti-BetterStack for developers. Worker API + CLI.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev --port 8788",
+    "deploy": "wrangler deploy",
+    "prebuild": "rm -rf dist",
+    "build": "node build.mjs",
+    "cli:dev": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "db:local": "wrangler d1 migrations apply monito-db --local",
+    "db:remote": "wrangler d1 migrations apply monito-db --remote",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.7.0",
+    "resend": "^4.1.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@types/node": "^25.9.3",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
